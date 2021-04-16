@@ -1,4 +1,3 @@
-
 use structopt::StructOpt;
 
 mod logical;
@@ -20,5 +19,7 @@ struct Cli {
 
 fn main() {
     let args = Cli::from_args();
-    // logical::run(args., db_file, loop_interval)
+    logical::run_loop(&args.sensor_file, &args.db_file, &args.loop_interval);
+    // println!("Hi guy! {}", &args.loop_interval);
+    return ();
 }
