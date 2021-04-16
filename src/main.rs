@@ -5,6 +5,7 @@ mod logical;
 #[derive(StructOpt)]
 struct Cli {
     /// The path to the sensor file to read
+    /// should be /sys/bus/w1/devices/
     #[structopt(parse(from_os_str))]
     sensor_file: std::path::PathBuf,
 
