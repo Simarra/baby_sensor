@@ -13,10 +13,10 @@
             "externalConsole": true
         },
         {
-            "name": "(OSX) Launch",
+            "name": "(*IX) Launch",
             "type": "lldb",
             "request": "launch",
-            "program": "${workspaceRoot}/target/debug/foo",
+            "program": "${workspaceRoot}/target/debug/baby_sensor",
             "args": [],
             "cwd": "${workspaceRoot}",
         }
