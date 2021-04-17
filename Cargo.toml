@@ -10,3 +10,4 @@ edition = "2018"
 structopt = "0.3.13"
 diesel = { version = "1.4.4", features = ["sqlite"] }
 dotenv = "0.15.0"
+actix-web = "3"

@@ -4,6 +4,7 @@ extern crate diesel;
 extern crate dotenv;
 
 mod db;
+mod api;
 use db::*;
 
 mod baby_loop;
@@ -26,7 +27,8 @@ struct Cli {
 
 fn main() {
     let args = Cli::from_args();
-    baby_loop::run_loop(&args.sensor_file, &args.db_file, &args.loop_interval);
+    // baby_loop::run_loop(&args.sensor_file, &args.db_file, &args.loop_interval); // MAKE IT ASYNC
+    api::main();
     // println!("Hi guy! {}", &args.loop_interval);
     return ();
 }
