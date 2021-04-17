@@ -3,6 +3,9 @@ use structopt::StructOpt;
 extern crate diesel;
 extern crate dotenv;
 
+#[macro_use]
+extern crate serde_derive;
+
 mod db;
 mod api;
 use db::*;

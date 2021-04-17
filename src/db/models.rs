@@ -1,6 +1,8 @@
 use super::schema::statements;
 
-#[derive(Queryable)]
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Serialize, Deserialize, Queryable)]
 pub struct Statement {
     pub id: i32,
     pub temperature: f32,

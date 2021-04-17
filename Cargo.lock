@@ -344,6 +344,9 @@ dependencies = [
  "actix-web",
  "diesel",
  "dotenv",
+ "serde",
+ "serde_derive",
+ "serde_json",
  "structopt",
 ]
 
