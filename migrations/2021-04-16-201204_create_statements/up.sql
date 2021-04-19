@@ -1,6 +1,6 @@
 -- Your SQL goes here
 CREATE TABLE statements (
-    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    uuid VARCHAR NOT NULL PRIMARY KEY,
     temperature REAL NOT NULL,
     timestamp INTEGER NOT NULL
 );

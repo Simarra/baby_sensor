@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Queryable)]
 pub struct Statement {
-    pub id: i32,
+    pub uuid: String,
     pub temperature: f32,
     pub timestamp: i32,
 }
@@ -12,7 +12,7 @@ pub struct Statement {
 #[derive(Insertable)]
 #[table_name = "statements"]
 pub struct NewStatement<'a> {
-    pub id: &'a i32,
+    pub uuid: &'a str,
     pub temperature: &'a f32,
     pub timestamp: &'a i32,
 }

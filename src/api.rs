@@ -17,7 +17,8 @@ pub async fn manual_hello() -> impl Responder {
     HttpResponse::Ok().body("Hey there!")
 }
 
-fn index() -> impl Responder {
+#[get("/statements")]
+pub async fn index() -> impl Responder {
     let statements = db::get_statements();
     HttpResponse::Ok().json(statements)
 }

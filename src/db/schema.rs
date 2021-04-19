@@ -1,6 +1,6 @@
 table! {
-    statements (id) {
-        id -> Integer,
+    statements (uuid) {
+        uuid -> Text,
         temperature -> Float,
         timestamp -> Integer,
     }

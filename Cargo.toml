@@ -6,6 +6,10 @@ edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[build]
+[target.armv7-unknown-linux-gnueabihf]
+linker = "arm-none-linux-gnueabihf-gcc"
+
 [dependencies]
 structopt = "0.3.13"
 diesel = { version = "1.4.4", features = ["sqlite"] }
@@ -14,3 +18,4 @@ actix-web = "3"
 serde = "1.0"
 serde_json = "1.0"
 serde_derive = "1.0"
+chrono = "0.4"

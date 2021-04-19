@@ -1,13 +1,14 @@
 pub mod models;
 pub mod schema;
 
+use chrono::Utc;
 use diesel::prelude::*;
 use dotenv::dotenv;
-use std::env;
-
 use models::*;
 use schema::statements;
 use schema::statements::dsl::*;
+use std::env;
+use uuid::Uuid;
 
 fn establish_connection() -> SqliteConnection {
     dotenv().ok();
@@ -32,4 +33,25 @@ pub fn get_statements() -> Vec<Statement> {
     }
 
     results
+}
+
+pub fn create_statement(temp_val: &f32) -> String {
+    let connection = establish_connection();
+
+    let gen_uuid = Uuid::new_v4().to_hyphenated().to_string();
+
+    let timestmp = i32::from(Utc::now().timestamp())
+
+    let new_statement = NewStatement {
+        uuid: &gen_uuid,
+        temperature: &temp_val,
+        timestamp: &timestmp,
+    };
+
+    diesel::insert_into(statements::table)
+        .values(&new_statement)
+        .execute(&connection)
+        .expect("Error saving new post");
+
+    gen_uuid
 }
