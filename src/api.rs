@@ -18,35 +18,34 @@ pub async fn manual_hello() -> impl Responder {
 }
 
 #[get("/statements")]
-pub async fn index() -> impl Responder {
+pub async fn get_statements() -> impl Responder {
     let statements = db::get_statements();
     HttpResponse::Ok().json(statements)
 }
 
-// pub fn create_post(t: &str, b: &str) -> String {
-//     let connection = establish_connection();
+#[derive(Deserialize)]
+pub struct StatementQuery {
+    temperature: f32,
+}
 
-//     let uuid = Uuid::new_v4().to_hyphenated().to_string();
-
-//     let new_post = NewPost { id: &uuid,  title: t, body: b };
-
-//     diesel::insert_into(posts::table)
-//         .values(&new_post)
-//         .execute(&connection)
-//         .expect("Error saving new post");
-
-//     uuid
-// }
+#[post("/statement")]
+pub async fn add_statement(temp_infos: web::Query<StatementQuery>) -> impl Responder {
+    let uuid_res = db::create_statement(&temp_infos.temperature);
+    HttpResponse::Ok().body(uuid_res)
+}
 
 #[actix_web::main]
 pub async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
+            .data(web::JsonConfig::default().limit(4096))
             .service(hello)
             .service(echo)
+            .service(get_statements)
+            .service(add_statement)
             .route("/hey", web::get().to(manual_hello))
     })
-    .bind("127.0.0.1:8080")?
+    .bind("localhost:8080")?
     .run()
     .await
 }

@@ -44,7 +44,7 @@ pub fn create_statement(temp_val: &f32) -> String {
     let timestmp = i32::try_from(Utc::now().timestamp());
     let timestmp = match timestmp {
         Ok(res) => res,
-        Err(error) => 0,
+        Err(_error) => 0,
     };
 
     let new_statement = NewStatement {

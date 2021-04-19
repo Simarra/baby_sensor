@@ -17,7 +17,7 @@
             "type": "lldb",
             "request": "launch",
             "program": "${workspaceRoot}/target/debug/baby_sensor",
-            "args": [],
+            "args": ["1", "2", "3"],
             "cwd": "${workspaceRoot}",
         }
     ]
