@@ -8,7 +8,8 @@ use models::*;
 use schema::statements;
 use schema::statements::dsl::*;
 use std::env;
-use uuid::Uuid;
+use std::convert::TryFrom;
+use ::uuid::Uuid;
 
 fn establish_connection() -> SqliteConnection {
     dotenv().ok();
@@ -29,7 +30,7 @@ pub fn get_statements() -> Vec<Statement> {
     println!("Displaying {} posts", results.len());
 
     for statement in &results {
-        println!("{}", statement.id);
+        println!("{}", statement.uuid);
     }
 
     results
@@ -40,7 +41,11 @@ pub fn create_statement(temp_val: &f32) -> String {
 
     let gen_uuid = Uuid::new_v4().to_hyphenated().to_string();
 
-    let timestmp = i32::from(Utc::now().timestamp())
+    let timestmp = i32::try_from(Utc::now().timestamp());
+    let timestmp = match timestmp {
+        Ok(res) => res,
+        Err(error) => 0,
+    };
 
     let new_statement = NewStatement {
         uuid: &gen_uuid,
@@ -53,5 +58,5 @@ pub fn create_statement(temp_val: &f32) -> String {
         .execute(&connection)
         .expect("Error saving new post");
 
-    gen_uuid
+    gen_uuid.to_string()
 }
