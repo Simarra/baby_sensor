@@ -16,8 +16,8 @@ fn extract_temperature(sensor_content: &String) -> Result<f32, io::Error> {
 
 pub fn get_temperature(sensor_file: &std::path::PathBuf) -> Result<f32, Box<dyn Error>> {
     match extract_temperature(read_sensor_file(&sensor_file)){
-        Ok(result) -> result,
-        Error() -> 0.0
+        Ok(result) => result,
+        Error() => 0.0
     }
 
     // # Supprimer la premiere ligne qui est inutile
