@@ -8,6 +8,7 @@ extern crate serde_derive;
 
 mod db;
 mod api;
+mod functions;
 use db::*;
 
 mod baby_loop;

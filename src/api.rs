@@ -2,6 +2,7 @@
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 
 use crate::db;
+use crate::functions;
 
 #[get("/")]
 pub async fn hello() -> impl Responder {
