@@ -15,15 +15,14 @@ fn read_sensor_file(sensor_file: &std::path::PathBuf) -> Result<String, String> 
 
 // Extract temperature from a string object.
 fn extract_temperature(sensor_content: &String) -> Result<f32, std::num::ParseFloatError> {
-    let mut string_temp = sensor_content.lines().nth(2).unwrap().split(" ").nth(9).unwrap();
+    println!("sensor file content: \n {}", sensor_content);
+    let string_temp = sensor_content.lines().nth(2).unwrap().split(" ").nth(9).unwrap();
     f32::from_str(string_temp)
 }
 
-pub fn get_temperature(sensor_file: &std::path::PathBuf) -> Result<f32, Box<dyn Error>> {
-    match extract_temperature(read_sensor_file(&sensor_file)){
-        Ok(result) => result,
-        Error() => 0.0
-    }
+pub fn get_temperature(sensor_file: &std::path::PathBuf) -> f32 {
+    let content = read_sensor_file(&sensor_file).unwrap();
+    extract_temperature(&content).unwrap()
 
     // # Supprimer la premiere ligne qui est inutile
     // seconde_ligne = contenu.split("\n")[1]
@@ -39,10 +38,10 @@ mod tests {
 
     #[test]
     fn test_extracting() {
-        let contents = "\
+        let contents = String::from_str("\
 6E 50 f4 20 f5 05 J7 9U 9H : crc=90 YES
-6E 50 f4 20 f5 05 J7 9U 9H t=6787;"
-        assert_eq!("6.87", extract_temperature(sensor_file: &String)(query, contents));
+6E 50 f4 20 f5 05 J7 9U 9H t=6787").unwrap();
+        assert_eq!(6.87f32, extract_temperature(&contents).unwrap())
     }
 
 }
