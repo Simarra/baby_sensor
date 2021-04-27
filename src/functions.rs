@@ -1,8 +1,9 @@
-use std::error::Error;
 use std::fs;
-use std::io;
-use std::path;
 use std::str::FromStr;
+use std::path::PathBuf;
+
+// use dotenv::dotenv;
+use std::env;
 
 // try to read the sensor file.
 fn read_sensor_file(sensor_file: &std::path::PathBuf) -> Result<String, String> {
@@ -29,6 +30,7 @@ fn extract_temperature(sensor_content: &String) -> Result<f32, std::num::ParseFl
 }
 
 pub fn get_temperature(sensor_file: &std::path::PathBuf) -> f32 {
+    let sensor_file = PathBuf::from(env::var("TEMP_FILE_PATH").expect("Temp File must be set"));
     let content = read_sensor_file(&sensor_file).unwrap();
     extract_temperature(&content).unwrap()
 
