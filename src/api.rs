@@ -18,9 +18,14 @@ pub async fn manual_hello() -> impl Responder {
     HttpResponse::Ok().body("Hey there!")
 }
 
+#[derive(Deserialize)]
+pub struct StatementQueryNumbers {
+    nb: i64,
+}
+
 #[get("/statements")]
-pub async fn get_statements() -> impl Responder {
-    let statements = db::get_statements();
+pub async fn get_statements(nb: web::Query<StatementQueryNumbers>) -> impl Responder {
+    let statements = db::get_statements(nb.nb);
     HttpResponse::Ok().json(statements)
 }
 

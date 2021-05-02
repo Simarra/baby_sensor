@@ -19,11 +19,11 @@ fn establish_connection() -> SqliteConnection {
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
 
-pub fn get_statements() -> Vec<Statement> {
+pub fn get_statements(nb: i64) -> Vec<Statement> {
     let connection = establish_connection();
     let results = statements
         .filter(timestamp.gt(0))
-        .limit(5)
+        .limit(nb)
         .load::<Statement>(&connection)
         .expect("Error loading statements");
 
